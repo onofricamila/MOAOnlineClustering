@@ -35,8 +35,10 @@ public class TestingClustream {
             double[] center = cluster.getCenter();
             double w = cluster.getWeight();
             double id = cluster.getId();
+
             SphereCluster sc = (SphereCluster) cluster;
             double r = sc.getRadius();
+
             System.out.println("id: " + id);
             System.out.println("center: " + center[0] + "  , " + center[1]);
             System.out.println("weight: " + w);

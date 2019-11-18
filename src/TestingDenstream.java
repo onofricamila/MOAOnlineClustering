@@ -4,6 +4,7 @@ import com.yahoo.labs.samoa.instances.Instances;
 import com.yahoo.labs.samoa.instances.InstancesHeader;
 import moa.cluster.Cluster;
 import moa.cluster.Clustering;
+import moa.cluster.SphereCluster;
 import moa.clusterers.denstream.WithDBSCAN;
 
 import java.util.ArrayList;
@@ -58,8 +59,13 @@ public class TestingDenstream {
             double[] center = cluster.getCenter();
             double w = cluster.getWeight();
             double id = cluster.getId();
+
+            SphereCluster sc = (SphereCluster) cluster;
+            double r = sc.getRadius();
+
             System.out.println("id: " + id);
             System.out.println("center: " + center[0] + "  , " + center[1]);
+            System.out.println("radius: " + r);
             System.out.println("weight: " + w + "\n");
             sumW += w;
         }
