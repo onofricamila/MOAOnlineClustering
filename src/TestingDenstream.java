@@ -2,6 +2,7 @@ import com.yahoo.labs.samoa.instances.Attribute;
 import com.yahoo.labs.samoa.instances.DenseInstance;
 import com.yahoo.labs.samoa.instances.Instances;
 import com.yahoo.labs.samoa.instances.InstancesHeader;
+import moa.cluster.Cluster;
 import moa.cluster.Clustering;
 import moa.clusterers.denstream.WithDBSCAN;
 
@@ -10,7 +11,6 @@ import java.util.Random;
 
 public class TestingDenstream {
     static DenseInstance randomInstance(int size) {
-
         // generates the name of the features which is called as InstanceHeader
         ArrayList<Attribute> attributes = new ArrayList<Attribute>();
         for (int i = 0; i < size; i++) {
@@ -35,11 +35,13 @@ public class TestingDenstream {
 
         return inst;
     }
+
+
     public static void main(String[] args) {
         WithDBSCAN withDBSCAN = new WithDBSCAN();
         withDBSCAN.resetLearningImpl();
         withDBSCAN.initialDBScan();
-        for (int i = 0; i < 15000; i++) {
+        for (int i = 0; i < 1500; i++) {
             DenseInstance d = randomInstance(5);
 
             withDBSCAN.trainOnInstanceImpl(d);
@@ -50,10 +52,13 @@ public class TestingDenstream {
         System.out.println(clusteringResult);
 
         int sumW = 0;
-        for (int i = 0; i < clusteringResult.size(); i++) {
-            double[] center = microClusteringResult.get(i).getCenter();
-            double w = microClusteringResult.get(i).getWeight();
-            System.out.println("id: " + microClusteringResult.get(i).getId());
+        Clustering list = clusteringResult;
+        for (int i = 0; i < list.size(); i++) {
+            Cluster cluster = list.get(i);
+            double[] center = cluster.getCenter();
+            double w = cluster.getWeight();
+            double id = cluster.getId();
+            System.out.println("id: " + id);
             System.out.println("center: " + center[0] + "  , " + center[1]);
             System.out.println("weight: " + w + "\n");
             sumW += w;

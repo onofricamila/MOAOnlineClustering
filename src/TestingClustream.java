@@ -1,4 +1,5 @@
 import com.yahoo.labs.samoa.instances.DenseInstance;
+import moa.cluster.Cluster;
 import moa.cluster.Clustering;
 import moa.cluster.SphereCluster;
 import moa.clusterers.clustream.WithKmeans;
@@ -28,12 +29,15 @@ public class TestingClustream {
         Clustering microClusteringResult = wkm.getMicroClusteringResult();
 
         int sumW = 0;
-        for (int i = 0; i < microClusteringResult.size(); i++) {
-            double[] center = microClusteringResult.get(i).getCenter();
-            double w = microClusteringResult.get(i).getWeight();
-            SphereCluster sc = (SphereCluster) microClusteringResult.get(i);
+        Clustering list = clusteringResult;
+        for (int i = 0; i < list.size(); i++) {
+            Cluster cluster = list.get(i);
+            double[] center = cluster.getCenter();
+            double w = cluster.getWeight();
+            double id = cluster.getId();
+            SphereCluster sc = (SphereCluster) cluster;
             double r = sc.getRadius();
-            System.out.println("i: " + i);
+            System.out.println("id: " + id);
             System.out.println("center: " + center[0] + "  , " + center[1]);
             System.out.println("weight: " + w);
             System.out.println("radius: " + r + "\n");
