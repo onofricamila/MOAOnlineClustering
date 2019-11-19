@@ -11,6 +11,13 @@ import java.util.stream.Collectors;
 
 public class TestingPlots {
     public static void main(String[] args) {
+        scatter();
+        plotWithColors();
+        plotSpheres();
+    }
+
+
+    public static void scatter(){
         // TESTING HOW TO PLOT
         List<Double> x = NumpyUtils.linspace(-3, 3, 100);
         List<Double> y = x.stream().map(xi -> Math.sin(xi) + Math.random()).collect(Collectors.toList());
@@ -19,52 +26,44 @@ public class TestingPlots {
         plt.plot().add(x, y, "o").label("sin");
         plt.title("scatter");
         plt.legend().loc("upper right");
-
-        try {
-            plt.show();
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-        } catch (
-                PythonExecutionException e) {
-            e.printStackTrace();
-        }
+        show(plt);
+    }
 
 
+    public static void plotWithColors(){
         // TESTING COLORS
-        x = NumpyUtils.linspace(-1, 1, 100);
-        y = NumpyUtils.linspace(-1, 1, 100);
+        List<Double> x = NumpyUtils.linspace(-1, 1, 100);
+        List<Double> y = NumpyUtils.linspace(-1, 1, 100);
         NumpyUtils.Grid<Double> grid = NumpyUtils.meshgrid(x, y);
 
         List<List<Double>> cCalced = grid.calcZ((xi, yj) -> Math.sqrt(xi * xi + yj * yj));
 
-        plt = Plot.create();
+        Plot plt = Plot.create();
         plt.pcolor().add(x, y, cCalced).cmap("plt.cm.Blues");
         plt.title("pcolor");
         plt.legend().loc("upper right");
-
-        try {
-            plt.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (PythonExecutionException e) {
-            e.printStackTrace();
-        }
+        show(plt);
+    }
 
 
+    public static void plotSpheres(){
         // TESTING RADIUS
-        x = NumpyUtils.linspace(-1, 1, 100);
-        y = NumpyUtils.linspace(-1, 1, 100);
-        grid = NumpyUtils.meshgrid(x, y);
+        List<Double> x = NumpyUtils.linspace(-1, 1, 100);
+        List<Double> y = NumpyUtils.linspace(-1, 1, 100);
+        NumpyUtils.Grid<Double> grid = NumpyUtils.meshgrid(x, y);
 
         List<List<Double>> zCalced = grid.calcZ((xi, yj) -> Math.sqrt(xi * xi + yj * yj));
 
-        plt = Plot.create();
+        Plot plt = Plot.create();
         ContourBuilder contour = plt.contour().add(x, y, zCalced);
         plt.clabel(contour).inline(true).fontsize(10);
         plt.title("contour");
         plt.legend().loc("upper right");
+        show(plt);
+    }
 
+
+    private static void show(Plot plt){
         try {
             plt.show();
         } catch (IOException e) {
