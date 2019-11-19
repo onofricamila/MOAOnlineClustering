@@ -1,18 +1,10 @@
-import com.yahoo.labs.samoa.instances.DenseInstance;
 import moa.cluster.Cluster;
 import moa.cluster.Clustering;
 import moa.cluster.SphereCluster;
 import moa.clusterers.clustream.WithKmeans;
+import static data.InstanceGenerator.randomInstance;
 
 public class TestingClustream {
-    static DenseInstance randomInstance(int size) {
-        DenseInstance instance = new DenseInstance(size);
-        for (int idx = 0; idx < size; idx++) {
-            instance.setValue(idx, Math.random());
-        }
-        return instance;
-    }
-
     public static void main(String[] args) {
         WithKmeans wkm = new WithKmeans();
         wkm.kOption.setValue(5);

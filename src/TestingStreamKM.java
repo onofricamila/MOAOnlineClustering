@@ -1,15 +1,9 @@
 import com.yahoo.labs.samoa.instances.DenseInstance;
 import moa.cluster.Clustering;
 import moa.clusterers.streamkm.StreamKM;
+import static data.InstanceGenerator.randomInstance;
 
 public class TestingStreamKM {
-    static DenseInstance randomInstance(int size) {
-        DenseInstance instance = new DenseInstance(size);
-        for (int idx = 0; idx < size; idx++) {
-            instance.setValue(idx, Math.random());
-        }
-        return instance;
-    }
     public static void main(String[] args) {
         StreamKM streamKM = new StreamKM();
         streamKM.numClustersOption.setValue(5); // default setting
@@ -21,5 +15,6 @@ public class TestingStreamKM {
         Clustering result = streamKM.getClusteringResult();
         System.out.println("size = " + result.size());
         System.out.println("dimension = " + result.dimension());
+        System.out.println("result = " + result);
     }
 }
