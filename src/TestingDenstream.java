@@ -22,10 +22,7 @@ public class TestingDenstream {
         SimpleCSVStream stream = simpleCSVStream();
         while (stream.hasMoreInstances()) {
             InstanceExample trainInst = stream.nextInstance();
-            // instance example to dense instance
-            double data0 = trainInst.getData().value(0); // att 1
-            double data1 = trainInst.getData().value(1); // att 2
-            double data2 = trainInst.getData().value(2); // class (0)
+            // get dense instance
             DenseInstance inst = (DenseInstance) trainInst.instance;
             // by empty class
             inst.deleteAttributeAt(2);
@@ -34,7 +31,7 @@ public class TestingDenstream {
         }
 
         Clustering clusteringResult = withDBSCAN.getClusteringResult();
-        Clustering microClusteringResult = withDBSCAN.getMicroClusteringResult();
+       // Clustering microClusteringResult = withDBSCAN.getMicroClusteringResult();
 
         int sumW = 0;
         Clustering list = clusteringResult;
