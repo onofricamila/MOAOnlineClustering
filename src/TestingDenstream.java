@@ -27,7 +27,8 @@ public class TestingDenstream {
             double data1 = trainInst.getData().value(1); // att 2
             double data2 = trainInst.getData().value(2); // class (0)
             DenseInstance inst = (DenseInstance) trainInst.instance;
-           // inst.dataset().
+            // by empty class
+            inst.deleteAttributeAt(2);
             //learning code
             withDBSCAN.trainOnInstanceImpl(inst);
         }
