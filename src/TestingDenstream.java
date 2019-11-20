@@ -3,17 +3,35 @@ import moa.cluster.Cluster;
 import moa.cluster.Clustering;
 import moa.cluster.SphereCluster;
 import moa.clusterers.denstream.WithDBSCAN;
-import static data.InstanceWithHeaderGenerator.randomInstance;
+import moa.core.InstanceExample;
+import moa.streams.clustering.SimpleCSVStream;
+
+import static data.StreamFromCsvGenerator.simpleCSVStream;
 
 public class TestingDenstream {
     public static void main(String[] args) {
         WithDBSCAN withDBSCAN = new WithDBSCAN();
         withDBSCAN.resetLearningImpl();
         withDBSCAN.initialDBScan();
-        for (int i = 0; i < 1500; i++) {
+
+      /*  for (int i = 0; i < 1500; i++) {
             DenseInstance d = randomInstance(5);
             withDBSCAN.trainOnInstanceImpl(d);
+        }*/
+
+        SimpleCSVStream stream = simpleCSVStream();
+        while (stream.hasMoreInstances()) {
+            InstanceExample trainInst = stream.nextInstance();
+            // instance example to dense instance
+            double data0 = trainInst.getData().value(0); // att 1
+            double data1 = trainInst.getData().value(1); // att 2
+            double data2 = trainInst.getData().value(2); // class (0)
+            DenseInstance inst = (DenseInstance) trainInst.instance;
+           // inst.dataset().
+            //learning code
+            withDBSCAN.trainOnInstanceImpl(inst);
         }
+
         Clustering clusteringResult = withDBSCAN.getClusteringResult();
         Clustering microClusteringResult = withDBSCAN.getMicroClusteringResult();
 

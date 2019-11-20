@@ -21,7 +21,7 @@ public class TestingClustream {
         Clustering microClusteringResult = wkm.getMicroClusteringResult();
 
         int sumW = 0;
-        Clustering list = clusteringResult;
+        Clustering list = microClusteringResult;
         for (int i = 0; i < list.size(); i++) {
             Cluster cluster = list.get(i);
             double[] center = cluster.getCenter();

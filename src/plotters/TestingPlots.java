@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public class TestingPlots {
     public static void main(String[] args) {
-        scatter();
+      //  scatter();
         plotWithColors();
-        plotSpheres();
+     //   plotSpheres();
     }
 
 
@@ -23,7 +23,7 @@ public class TestingPlots {
         List<Double> y = x.stream().map(xi -> Math.sin(xi) + Math.random()).collect(Collectors.toList());
 
         Plot plt = Plot.create();
-        plt.plot().add(x, y, "o").label("sin");
+        plt.plot().add(x, y, "s").label("sin");
         plt.title("scatter");
         plt.legend().loc("upper right");
         show(plt);
@@ -39,7 +39,7 @@ public class TestingPlots {
         List<List<Double>> cCalced = grid.calcZ((xi, yj) -> Math.sqrt(xi * xi + yj * yj));
 
         Plot plt = Plot.create();
-        plt.pcolor().add(x, y, cCalced).cmap("plt.cm.Blues");
+        plt.pcolor().add(x, y, cCalced).cmap("plt.cm.nipy_spectral"); // "plt.cm.Blues"
         plt.title("pcolor");
         plt.legend().loc("upper right");
         show(plt);
@@ -48,8 +48,8 @@ public class TestingPlots {
 
     public static void plotSpheres(){
         // TESTING RADIUS
-        List<Double> x = NumpyUtils.linspace(-1, 1, 100);
-        List<Double> y = NumpyUtils.linspace(-1, 1, 100);
+        List<Double> x = NumpyUtils.linspace(-1, 1, 5);
+        List<Double> y = NumpyUtils.linspace(-1, 1, 5);
         NumpyUtils.Grid<Double> grid = NumpyUtils.meshgrid(x, y);
 
         List<List<Double>> zCalced = grid.calcZ((xi, yj) -> Math.sqrt(xi * xi + yj * yj));
