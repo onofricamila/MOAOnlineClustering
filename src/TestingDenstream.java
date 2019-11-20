@@ -11,6 +11,8 @@ import static data.StreamFromCsvGenerator.simpleCSVStream;
 public class TestingDenstream {
     public static void main(String[] args) {
         WithDBSCAN withDBSCAN = new WithDBSCAN();
+        withDBSCAN.horizonOption.setValue(100);
+        withDBSCAN.epsilonOption.setValue(0.4);
         withDBSCAN.resetLearningImpl();
         withDBSCAN.initialDBScan();
 
