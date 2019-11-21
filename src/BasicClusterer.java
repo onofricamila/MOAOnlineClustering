@@ -11,12 +11,12 @@ import static data.StreamFromCsvGenerator.simpleCSVStream;
 public abstract class BasicClusterer {
 
     public void run(int tGlobal) {
-        int i = 0;
-        int sample = 100;
+        int i = 0; // meaning processed samples (to count till tGlobal)
+        int sample = tGlobal; // for debugging
 
         AbstractClusterer clusterer = prepareClusterer(tGlobal);
-        // get CSV data
 
+        // get CSV data
         SimpleCSVStream stream = simpleCSVStream();
         while (stream.hasMoreInstances()) {
             InstanceExample trainInst = stream.nextInstance();
@@ -28,13 +28,14 @@ public abstract class BasicClusterer {
             clusterer.trainOnInstanceImpl(inst);
             i += 1;
             if (i == tGlobal){
+                // TODO: store result in csv: center + label
                 Clustering clusteringResult = clusterer.getClusteringResult();
                 Clustering microClusteringResult = clusterer.getMicroClusteringResult();
-
+                // debug
                 System.out.println(sample + " procesados   |   " + clusteringResult.size() + "clusters");
-                // reset tGlobal
+                // reset i
                 i = 0;
-                sample += 100;
+                sample += tGlobal;
             }
         }
 

@@ -3,7 +3,7 @@ public class Main {
         ClustreamClusterer clustreamClusterer = new ClustreamClusterer();
         DenstreamClusterer denstreamClusterer = new DenstreamClusterer();
 
-        int tGlobal = 100;
+        int tGlobal = 200;
 
         System.out.println("CLUSTREAM ----------------------");
         clustreamClusterer.run(tGlobal);
