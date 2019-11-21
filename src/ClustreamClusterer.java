@@ -8,7 +8,7 @@ public class ClustreamClusterer extends BasicClusterer {
         WithKmeans withKmeans = new WithKmeans();
         withKmeans.kOption.setValue(2);
         withKmeans.timeWindowOption.setValue(1000); // default
-        // TODO: variate maxNumKernelsOption. A buffer of the same size will be used for initialization
+        // TODO: vary maxNumKernelsOption. A buffer of the same size will be used for initialization
         withKmeans.maxNumKernelsOption.setValue(initMinPoints-1);
         //    wkm.kernelRadiFactorOption.setValue(5);
         withKmeans.resetLearningImpl();
