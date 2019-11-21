@@ -3,7 +3,7 @@ import moa.cluster.Clustering;
 import moa.clusterers.streamkm.StreamKM;
 import static data.InstanceGenerator.randomInstance;
 
-public class TestingStreamKM {
+public class SOStreamKM {
     public static void main(String[] args) {
         StreamKM streamKM = new StreamKM();
         streamKM.numClustersOption.setValue(5); // default setting
