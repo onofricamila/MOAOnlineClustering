@@ -3,10 +3,12 @@ public class Main {
         ClustreamClusterer clustreamClusterer = new ClustreamClusterer();
         DenstreamClusterer denstreamClusterer = new DenstreamClusterer();
 
+        int tGlobal = 100;
+
         System.out.println("CLUSTREAM ----------------------");
-        clustreamClusterer.run();
+        clustreamClusterer.run(tGlobal);
 
         System.out.println("\n" + "DENSTREAM ----------------------");
-        denstreamClusterer.run();
+        denstreamClusterer.run(tGlobal);
     }
 }

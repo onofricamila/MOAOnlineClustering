@@ -10,12 +10,12 @@ import static data.StreamFromCsvGenerator.simpleCSVStream;
 
 public abstract class BasicClusterer {
 
-    public void run() {
-        AbstractClusterer clusterer = prepareClusterer(100);
-        // get CSV data
+    public void run(int tGlobal) {
         int i = 0;
         int sample = 100;
-        int tGlobal = 100;
+
+        AbstractClusterer clusterer = prepareClusterer(tGlobal);
+        // get CSV data
 
         SimpleCSVStream stream = simpleCSVStream();
         while (stream.hasMoreInstances()) {
