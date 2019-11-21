@@ -11,7 +11,7 @@ import static data.StreamFromCsvGenerator.simpleCSVStream;
 public abstract class BasicClusterer {
 
     public void run() {
-        AbstractClusterer clusterer = prepareClusterer();
+        AbstractClusterer clusterer = prepareClusterer(100);
         // get CSV data
         int i = 0;
         int sample = 100;
@@ -46,7 +46,7 @@ public abstract class BasicClusterer {
 
 
     // set specific parameters for each algo
-    public abstract AbstractClusterer prepareClusterer();
+    public abstract AbstractClusterer prepareClusterer(int initMinPoints);
 
 
     private void showClusteringInfo(Clustering clustering) {
