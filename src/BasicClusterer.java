@@ -13,6 +13,10 @@ public abstract class BasicClusterer {
     public void run() {
         AbstractClusterer clusterer = prepareClusterer();
         // get CSV data
+        int i = 0;
+        int sample = 100;
+        int tGlobal = 100;
+
         SimpleCSVStream stream = simpleCSVStream();
         while (stream.hasMoreInstances()) {
             InstanceExample trainInst = stream.nextInstance();
@@ -22,6 +26,16 @@ public abstract class BasicClusterer {
             inst.deleteAttributeAt(2);
             //learning code
             clusterer.trainOnInstanceImpl(inst);
+            i += 1;
+            if (i == tGlobal){
+                Clustering clusteringResult = clusterer.getClusteringResult();
+                Clustering microClusteringResult = clusterer.getMicroClusteringResult();
+
+                System.out.println(sample + " procesados   |   " + clusteringResult.size() + "clusters");
+                // reset tGlobal
+                i = 0;
+                sample += 100;
+            }
         }
 
         Clustering clusteringResult = clusterer.getClusteringResult();
