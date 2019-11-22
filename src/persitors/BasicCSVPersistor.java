@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.util.List;
 
 public class BasicCSVPersistor {
-    public void storeResult(String fileName, List<List<String>> rows){
+    public void storeResult(String fileName, List<List<String>> rows, String subfolder){
         try {
             String directoryName = "resources";
-            String folder = "/home/camila/Desktop/TESIS/Github_Repo_TestingMOAOnlineClustering/src/" + directoryName;
+            String folder = "/home/camila/Desktop/TESIS/Github_Repo_TestingMOAOnlineClustering/src/" + directoryName + "/" + subfolder;
             File directory = new File(folder);
             if (! directory.exists()){
                 directory.mkdir();

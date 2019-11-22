@@ -1,7 +1,33 @@
+import moa.cluster.Cluster;
 import moa.clusterers.AbstractClusterer;
 import moa.clusterers.denstream.WithDBSCAN;
+import persitors.BasicCSVPersistor;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DenstreamClusterer extends BasicClusterer {
+
+    @Override
+    public void storeResult(int moment) {
+        List list = new ArrayList();
+        for (int i = 0; i < microClusteringResult.size(); i++) {
+            Cluster cluster = microClusteringResult.get(i);
+            double[] center = cluster.getCenter();
+            double id = cluster.getId();
+            String x =Double.toString(center[0]);
+            String y =Double.toString(center[1]);
+            String label =Double.toString(id);
+
+            List<String> row = Arrays.asList(x, y, label);
+            list.add(row);
+        }
+        BasicCSVPersistor basicCSVPersistor = new BasicCSVPersistor();
+        String m  = Integer.toString(moment);
+        String subfolder = "denstream";
+        basicCSVPersistor.storeResult("time" + m, list, subfolder);
+    }
 
     @Override
     public AbstractClusterer prepareClusterer(int initMinPoints) {

@@ -9,6 +9,8 @@ import moa.streams.clustering.SimpleCSVStream;
 import static data.StreamFromCsvGenerator.simpleCSVStream;
 
 public abstract class BasicClusterer {
+    Clustering clusteringResult;
+    Clustering microClusteringResult;
 
     public void run(int tGlobal) {
         int i = 0; // meaning processed samples (to count till tGlobal)
@@ -29,8 +31,9 @@ public abstract class BasicClusterer {
             i += 1;
             if (i == tGlobal){
                 // TODO: store result in csv: center + label
-                Clustering clusteringResult = clusterer.getClusteringResult();
-                Clustering microClusteringResult = clusterer.getMicroClusteringResult();
+                clusteringResult = clusterer.getClusteringResult();
+                microClusteringResult = clusterer.getMicroClusteringResult();
+                storeResult(sample);
                 // debug
                 System.out.println(sample + " procesados   |   " + clusteringResult.size() + "clusters");
                 // reset i
@@ -44,6 +47,8 @@ public abstract class BasicClusterer {
 
         showClusteringInfo(clusteringResult);
     }
+
+    public abstract void storeResult(int moment);
 
 
     // set specific parameters for each algo

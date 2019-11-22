@@ -4,6 +4,11 @@ import moa.clusterers.clustream.WithKmeans;
 public class ClustreamClusterer extends BasicClusterer {
 
     @Override
+    public void storeResult(int moment) {
+        // TODO: implement this method
+    }
+
+    @Override
     public AbstractClusterer prepareClusterer(int initMinPoints) {
         WithKmeans withKmeans = new WithKmeans();
         withKmeans.kOption.setValue(2);
