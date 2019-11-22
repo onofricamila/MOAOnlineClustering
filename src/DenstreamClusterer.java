@@ -29,7 +29,7 @@ public class DenstreamClusterer extends BasicClusterer {
         }
         String m  = Integer.toString(moment);
         // store current clustering
-        basicCSVPersistor.storeResult("time" + m, list, subfolder);
+        basicCSVPersistor.storeResult(m, list, subfolder);
     }
 
 
