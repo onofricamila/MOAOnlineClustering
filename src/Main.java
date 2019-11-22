@@ -20,7 +20,7 @@ public class Main {
                 Arrays.asList("Scott", "editor", "Node.js")
         );
 
-        basicCSVPersistor.storeResult("test", rows);
+        basicCSVPersistor.storeResult("test", rows, "test");
 */
     }
 }

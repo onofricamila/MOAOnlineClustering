@@ -3,10 +3,16 @@ import moa.clusterers.clustream.WithKmeans;
 
 public class ClustreamClusterer extends BasicClusterer {
 
+    public ClustreamClusterer(){
+        subfolder = "clustream";
+    }
+
+
     @Override
     public void storeResult(int moment) {
         // TODO: implement this method
     }
+
 
     @Override
     public AbstractClusterer prepareClusterer(int initMinPoints) {

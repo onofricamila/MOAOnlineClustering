@@ -5,14 +5,20 @@ import moa.cluster.SphereCluster;
 import moa.clusterers.AbstractClusterer;
 import moa.core.InstanceExample;
 import moa.streams.clustering.SimpleCSVStream;
+import persitors.BasicCSVPersistor;
 
 import static data.StreamFromCsvGenerator.simpleCSVStream;
 
 public abstract class BasicClusterer {
     Clustering clusteringResult;
     Clustering microClusteringResult;
+    BasicCSVPersistor basicCSVPersistor = new BasicCSVPersistor();
+    String subfolder;
 
     public void run(int tGlobal) {
+        // delete old results
+        resetStorage();
+
         int i = 0; // meaning processed samples (to count till tGlobal)
         int sample = tGlobal; // for debugging
 
@@ -48,7 +54,14 @@ public abstract class BasicClusterer {
         showClusteringInfo(clusteringResult);
     }
 
+
     public abstract void storeResult(int moment);
+
+
+    public void resetStorage() {
+        // delete old results
+        basicCSVPersistor.resetStorage(subfolder);
+    }
 
 
     // set specific parameters for each algo
