@@ -7,6 +7,9 @@ import moa.core.InstanceExample;
 import moa.streams.clustering.SimpleCSVStream;
 import persitors.BasicCSVPersistor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static data.StreamFromCsvGenerator.simpleCSVStream;
 
 public abstract class BasicClusterer {
@@ -56,6 +59,28 @@ public abstract class BasicClusterer {
 
 
     public abstract void storeResult(int moment);
+
+    public void storeResult(int moment, Clustering clustering, String resId) {
+        List list = new ArrayList();
+        for (int i = 0; i < clustering.size(); i++) {
+            Cluster cluster = clustering.get(i);
+            // we always get the center
+            double[] center = cluster.getCenter();
+            String x =Double.toString(center[0]);
+            String y =Double.toString(center[1]);
+            // form the specific row
+            List<String> row = formRow(x,y, cluster);
+            list.add(row);
+        }
+        String m  = Integer.toString(moment);
+        String subf = getSubFolder(resId); // hook method
+        // store current clustering
+        basicCSVPersistor.storeResult(m, list, subf);
+    }
+
+    protected abstract List<String> formRow(String x, String y, Cluster cluster);
+
+    protected abstract String getSubFolder(String resId);
 
 
     public void resetStorage() {

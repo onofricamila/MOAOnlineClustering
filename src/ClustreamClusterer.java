@@ -3,7 +3,6 @@ import moa.cluster.SphereCluster;
 import moa.clusterers.AbstractClusterer;
 import moa.clusterers.clustream.WithKmeans;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,43 +12,22 @@ public class ClustreamClusterer extends BasicClusterer {
         subfolder = "clustream";
     }
 
-
     @Override
     public void storeResult(int moment) {
-        // TODO: implement this method
-        List list = new ArrayList();
-        for (int i = 0; i < microClusteringResult.size(); i++) {
-            Cluster cluster = microClusteringResult.get(i);
-            double[] center = cluster.getCenter();
-            double radius = ((SphereCluster) cluster).getRadius();
-            String x =Double.toString(center[0]);
-            String y =Double.toString(center[1]);
-            String rad =Double.toString(radius);
+        storeResult(moment, microClusteringResult, "micro");
+        storeResult(moment, clusteringResult,  "macro");
+    }
 
-            List<String> row = Arrays.asList(x, y, rad);
-            list.add(row);
-        }
-        String m  = Integer.toString(moment);
-        // store current clustering
-        String completePath = subfolder + '/' + "micro" ;
-        basicCSVPersistor.storeResult(m, list, completePath);
+    @Override
+    protected List<String> formRow(String x, String y, Cluster cluster) {
+        double radius = ((SphereCluster) cluster).getRadius();
+        String rad =Double.toString(radius);
+        return Arrays.asList(x, y, rad);
+    }
 
-        list = new ArrayList();
-        for (int i = 0; i < clusteringResult.size(); i++) {
-            Cluster cluster = clusteringResult.get(i);
-            double[] center = cluster.getCenter();
-            double radius = ((SphereCluster) cluster).getRadius();
-            String x =Double.toString(center[0]);
-            String y =Double.toString(center[1]);
-            String rad =Double.toString(radius);
-
-            List<String> row = Arrays.asList(x, y, rad);
-            list.add(row);
-        }
-        m  = Integer.toString(moment);
-        // store current clustering
-        completePath = subfolder + '/' + "macro" ;
-        basicCSVPersistor.storeResult(m, list, completePath);
+    @Override
+    protected String getSubFolder(String resId) {
+        return subfolder + '/' + resId;
     }
 
 

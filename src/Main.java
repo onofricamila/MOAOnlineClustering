@@ -12,7 +12,7 @@ public class Main {
         clustreamClusterer.run(tGlobal);
 
         System.out.println("\n" + "DENSTREAM ----------------------");
-//        denstreamClusterer.run(tGlobal);
+        denstreamClusterer.run(tGlobal);
 
        /* List<List<String>> rows = Arrays.asList(
                 Arrays.asList("Jean", "author", "Java"),
