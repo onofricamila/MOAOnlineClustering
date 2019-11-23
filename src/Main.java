@@ -9,10 +9,10 @@ public class Main {
         int tGlobal = 200;
 
         System.out.println("CLUSTREAM ----------------------");
-       // clustreamClusterer.run(tGlobal);
+        clustreamClusterer.run(tGlobal);
 
         System.out.println("\n" + "DENSTREAM ----------------------");
-        denstreamClusterer.run(tGlobal);
+//        denstreamClusterer.run(tGlobal);
 
        /* List<List<String>> rows = Arrays.asList(
                 Arrays.asList("Jean", "author", "Java"),

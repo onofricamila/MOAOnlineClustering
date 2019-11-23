@@ -18,10 +18,12 @@ public class BasicCSVPersistor {
         String currentFolder =  rootFolderPath + "/" + subfolder;
         File directory = new File(currentFolder);
         try {
-            // First, remove files from into the folder
-            FileUtils.cleanDirectory(directory);
-            // Then, remove the folder
-            FileUtils.deleteDirectory(directory);
+            if (directory.exists()) {
+                // First, remove files from into the folder
+                FileUtils.cleanDirectory(directory);
+                // Then, remove the folder
+                FileUtils.deleteDirectory(directory);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,7 +37,7 @@ public class BasicCSVPersistor {
 
             // check if the directory needs to be created
             if (! directory.exists()){
-                directory.mkdir();
+                directory.mkdirs();
             }
 
             String fileWExtention = fileName + ".csv";
