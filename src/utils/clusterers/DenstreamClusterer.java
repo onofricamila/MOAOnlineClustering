@@ -1,3 +1,5 @@
+package utils.clusterers;
+
 import moa.cluster.Cluster;
 import moa.clusterers.AbstractClusterer;
 import moa.clusterers.denstream.WithDBSCAN;
@@ -5,10 +7,12 @@ import moa.clusterers.denstream.WithDBSCAN;
 import java.util.Arrays;
 import java.util.List;
 
+import static config.Config.getDenStreamName;
+
 public class DenstreamClusterer extends BasicClusterer {
 
     public DenstreamClusterer(){
-        subfolder = "denstream";
+        subfolder = getDenStreamName();
     }
 
 

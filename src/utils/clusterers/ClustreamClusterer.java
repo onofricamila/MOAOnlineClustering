@@ -1,3 +1,5 @@
+package utils.clusterers;
+
 import moa.cluster.Cluster;
 import moa.cluster.SphereCluster;
 import moa.clusterers.AbstractClusterer;
@@ -6,10 +8,12 @@ import moa.clusterers.clustream.WithKmeans;
 import java.util.Arrays;
 import java.util.List;
 
+import static config.Config.getCluStreamName;
+
 public class ClustreamClusterer extends BasicClusterer {
 
     public ClustreamClusterer(){
-        subfolder = "clustream";
+        subfolder = getCluStreamName();
     }
 
     @Override

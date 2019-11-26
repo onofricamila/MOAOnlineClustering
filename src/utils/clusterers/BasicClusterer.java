@@ -1,3 +1,5 @@
+package utils.clusterers;
+
 import com.yahoo.labs.samoa.instances.DenseInstance;
 import moa.cluster.Cluster;
 import moa.cluster.Clustering;
@@ -5,12 +7,12 @@ import moa.cluster.SphereCluster;
 import moa.clusterers.AbstractClusterer;
 import moa.core.InstanceExample;
 import moa.streams.clustering.SimpleCSVStream;
-import persitors.BasicCSVPersistor;
+import utils.persitors.BasicCSVPersistor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static data.StreamFromCsvGenerator.simpleCSVStream;
+import static utils.data_generators.StreamFromCsvGenerator.simpleCSVStream;
 
 public abstract class BasicClusterer {
     Clustering clusteringResult;

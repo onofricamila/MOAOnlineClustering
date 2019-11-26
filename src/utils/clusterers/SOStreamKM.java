@@ -1,7 +1,9 @@
+package utils.clusterers;
+
 import com.yahoo.labs.samoa.instances.DenseInstance;
 import moa.cluster.Clustering;
 import moa.clusterers.streamkm.StreamKM;
-import static data.InstanceGenerator.randomInstance;
+import static utils.data_generators.InstanceGenerator.randomInstance;
 
 public class SOStreamKM {
     public static void main(String[] args) {

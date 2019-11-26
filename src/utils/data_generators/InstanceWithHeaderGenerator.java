@@ -1,4 +1,4 @@
-package data;
+package utils.data_generators;
 
 import com.yahoo.labs.samoa.instances.Attribute;
 import com.yahoo.labs.samoa.instances.DenseInstance;

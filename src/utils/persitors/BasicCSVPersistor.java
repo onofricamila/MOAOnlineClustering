@@ -1,4 +1,4 @@
-package persitors;
+package utils.persitors;
 
 import org.apache.commons.io.FileUtils;
 
@@ -6,16 +6,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-
+import static config.Config.getClusteringResultsPath;
 
 public class BasicCSVPersistor {
-    public String rootFolderName = "resources";
-    public String rootFolderPath = "/home/camila/Desktop/TESIS/Github_Repo_TestingMOAOnlineClustering/src/" + rootFolderName;
+    public String clusteringResultsPath = getClusteringResultsPath();
 
     // for different runs of the algorithms
     // we do not wanna keep old files with old clusterings
     public void resetStorage(String subfolder){
-        String currentFolder =  rootFolderPath + "/" + subfolder;
+        String currentFolder =  clusteringResultsPath + "/" + subfolder;
         File directory = new File(currentFolder);
         try {
             if (directory.exists()) {
@@ -32,7 +31,7 @@ public class BasicCSVPersistor {
 
     public void storeResult(String fileName, List<List<String>> rows, String subfolder){
         try {
-            String currentFolder =  rootFolderPath + "/" + subfolder;
+            String currentFolder =  clusteringResultsPath + "/" + subfolder;
             File directory = new File(currentFolder);
 
             // check if the directory needs to be created
