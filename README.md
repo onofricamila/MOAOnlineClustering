@@ -3,9 +3,7 @@ A few MOA stream clustering algorithms are run:
 * `CluStream`, and
 * `DenStream`
 
-Both taking data from a CSV file.
-
-Their results, are also stored in CSV files.
+Both take data from a CSV file, and both resulting clusterings are stored in files.
 
 ---
 
@@ -24,3 +22,5 @@ There is a `Config` class, used to get the _paths_ of the folders in which clust
      }
 }
 ```
+
+**The path to the json file must be specified in the Config class.**
