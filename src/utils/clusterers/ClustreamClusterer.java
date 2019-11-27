@@ -39,19 +39,29 @@ public class ClustreamClusterer extends BasicClusterer {
     public AbstractClusterer prepareClusterer(int initMinPoints) {
         WithKmeans withKmeans = new WithKmeans();
         /* horizon: Defines the time window to be used in CluStream (snapshots horizon). */
-        withKmeans.timeWindowOption.setValue(1000); // = default 1000
+        int timeWindow = 1000; // = default 1000
+        withKmeans.timeWindowOption.setValue(timeWindow);
 
         /* m: Defines the maximum number of micro-clusters used in CluStream. A buffer of the same size will be used
-        for initialization: once the buffer is full, the macro clusters start being formed. Default: 100. */
-        // TODO: vary maxNumKernelsOption. A buffer of the same size will be used for initialization
-        withKmeans.maxNumKernelsOption.setValue(initMinPoints-1);
+        for initialization: once the buffer is full, the macro clusters start being formed. */
+        // TODO: vary maxNumKernels. A buffer of the same size will be used for initialization
+        int maxNumKernels = initMinPoints - 1; // default 100
+        withKmeans.maxNumKernelsOption.setValue(maxNumKernels);
 
         /* t: Maximal boundary factor (=Kernel radius factor). When deciding to add a newdata point to a micro-cluster,
         the maximum boundary is defined as a factor oftof the RMS deviation of the data points in the micro-cluster from the centroid. */
-        withKmeans.kernelRadiFactorOption.setValue(2); // = default 2
+        int kernelRadiFactor = 2; // = default 2
+        withKmeans.kernelRadiFactorOption.setValue(kernelRadiFactor);
 
-        /* k: Number of macro-clusters to produce using weighted k-means. Default: 5. */
-        withKmeans.kOption.setValue(2);
+        /* k: Number of macro-clusters to produce using weighted k-means. */
+        int k = 2; // default 5
+        withKmeans.kOption.setValue(k);
+
+        // fill json object algoConfig
+        algoConfig.put("timeWindow", timeWindow);
+        algoConfig.put("maxNumKernels", maxNumKernels);
+        algoConfig.put("kernelRadiFactor", kernelRadiFactor);
+        algoConfig.put("k", k);
 
         // once the parameters are specified, prepare the clusterer
         withKmeans.resetLearningImpl();

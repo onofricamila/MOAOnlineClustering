@@ -40,31 +40,49 @@ public class DenstreamClusterer extends BasicClusterer {
     public AbstractClusterer prepareClusterer(int initMinPoints) {
         WithDBSCAN withDBSCAN = new WithDBSCAN();
         /* horizon: ?. No matter the value, the result you get is the same. */
-        withDBSCAN.horizonOption.setValue(1000); // = default 1000
+        int horizon = 1000; // = default 1000
+        withDBSCAN.horizonOption.setValue(horizon);
 
         /* epsilon: defines the epsilon neighbourhood which is the maximal radius of micro-clusters(r<=epsilon). Range [0, 1] */
         // TODO: vary epsilonOption,
-        withDBSCAN.epsilonOption.setValue(0.4); // default 0.2
+        double epsilon = 0.4; // = default 0.2
+        withDBSCAN.epsilonOption.setValue(epsilon);
 
         /* beta: multiplier for mu to detect outlier micro-clusters given their weight w (w<betax mu). Range [0, 1] */
-        withDBSCAN.betaOption.setValue(0.2); // = default 0.2
+        double beta = 0.2; // = default 0.2
+        withDBSCAN.betaOption.setValue(beta);
 
         /* mu: minpoints as the weight w a core-micro-clusters needs to be created (w>=mu). Range [0, +inf] */
-        withDBSCAN.muOption.setValue(1); // = default 1
+        int mu = 1; // = default 1
+        withDBSCAN.muOption.setValue(mu);
 
-        /* initPoints: number of points to use for initialization via DBSCAN. Default: 1000  */
+        /* initPoints: number of points to use for initialization via DBSCAN. */
         // TODO: vary initPointsOption (needed amount of points to start forming macro clusters)
-        withDBSCAN.initPointsOption.setValue(initMinPoints);
+        int initPoints = initMinPoints; // default: 1000
+        withDBSCAN.initPointsOption.setValue(initPoints);
 
         /* offline: offline multiplier for epsilon. Used for reachabilityreclustering. Range [2, 20] */
-        withDBSCAN.offlineOption.setValue(2); // = default 2
+        int offline = 2; // = default 2
+        withDBSCAN.offlineOption.setValue(offline);
 
         /* lambda: decay constant. Range [0.25, 1] */
         // TODO: vary lambda (forgetting component)
-        withDBSCAN.lambdaOption.setValue( Double.parseDouble("".trim()) ); // = default ""
+        double lambda = 0.25; // = default ""
+        withDBSCAN.lambdaOption.setValue(lambda);
 
         /* processingSpeed: number of incoming points per time unit (important for decay). Role: set timestamp value (does not mean "batches to process") */
-        withDBSCAN.speedOption.setValue(100); // = default 100
+        int speed = 100; // = default 100
+        withDBSCAN.speedOption.setValue(speed);
+
+        // fill json object algoConfig
+        algoConfig.put("horizon", horizon);
+        algoConfig.put("epsilon", epsilon);
+        algoConfig.put("beta", beta);
+        algoConfig.put("mu", mu);
+        algoConfig.put("initPoints", initPoints);
+        algoConfig.put("offline", offline);
+        algoConfig.put("lambda", lambda);
+        algoConfig.put("speed", speed);
 
         // once the parameters are specified, prepare the clusterer
         withDBSCAN.resetLearningImpl();

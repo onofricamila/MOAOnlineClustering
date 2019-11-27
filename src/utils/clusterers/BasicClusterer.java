@@ -7,11 +7,10 @@ import moa.cluster.SphereCluster;
 import moa.clusterers.AbstractClusterer;
 import moa.core.InstanceExample;
 import moa.streams.clustering.SimpleCSVStream;
+import org.json.simple.JSONObject;
 import utils.persitors.BasicCSVPersistor;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static utils.data_generators.StreamFromCsvGenerator.simpleCSVStream;
 
 public abstract class BasicClusterer {
@@ -19,6 +18,7 @@ public abstract class BasicClusterer {
     Clustering microClusteringResult;
     BasicCSVPersistor basicCSVPersistor = new BasicCSVPersistor();
     String subfolder;
+    JSONObject algoConfig = new JSONObject();
 
     public void run(int tGlobal) {
         // delete old results
@@ -28,14 +28,14 @@ public abstract class BasicClusterer {
         int sample = tGlobal; // for debugging
 
         AbstractClusterer clusterer = prepareClusterer(tGlobal);
-
+        System.out.println(algoConfig);
         // get CSV data
         SimpleCSVStream stream = simpleCSVStream();
         while (stream.hasMoreInstances()) {
             InstanceExample trainInst = stream.nextInstance();
             // get dense instance
             DenseInstance inst = (DenseInstance) trainInst.instance;
-            // by empty class
+            // bye empty class
             inst.deleteAttributeAt(2);
             //learning code
             clusterer.trainOnInstanceImpl(inst);
