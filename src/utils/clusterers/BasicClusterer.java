@@ -8,7 +8,7 @@ import moa.clusterers.AbstractClusterer;
 import moa.core.InstanceExample;
 import moa.streams.clustering.SimpleCSVStream;
 import org.json.simple.JSONObject;
-import utils.persitors.BasicCSVPersistor;
+import utils.persitors.BasicPersistor;
 import java.util.ArrayList;
 import java.util.List;
 import static utils.data_generators.StreamFromCsvGenerator.simpleCSVStream;
@@ -16,7 +16,7 @@ import static utils.data_generators.StreamFromCsvGenerator.simpleCSVStream;
 public abstract class BasicClusterer {
     Clustering clusteringResult;
     Clustering microClusteringResult;
-    BasicCSVPersistor basicCSVPersistor = new BasicCSVPersistor();
+    BasicPersistor basicPersistor = new BasicPersistor();
     String subfolder;
     JSONObject algoConfig = new JSONObject();
 
@@ -31,7 +31,7 @@ public abstract class BasicClusterer {
 
         System.out.println(algoConfig);
         // store algoConfig
-        basicCSVPersistor.storeAlgoConfig(algoConfig, this.subfolder);
+        basicPersistor.storeAlgoConfig(algoConfig, this.subfolder);
 
         // get CSV data
         SimpleCSVStream stream = simpleCSVStream();
@@ -81,7 +81,7 @@ public abstract class BasicClusterer {
         String m  = Integer.toString(moment);
         String subf = getSpecificClusteringResultFolder(resId); // hook method
         // store current clustering
-        basicCSVPersistor.storeResult(m, list, subf);
+        basicPersistor.storeResult(m, list, subf);
     }
 
     protected abstract List<String> formRow(String x, String y, Cluster cluster);
@@ -91,7 +91,7 @@ public abstract class BasicClusterer {
 
     public void resetStorage() {
         // delete old results and old algoConfig
-        basicCSVPersistor.resetStorage(subfolder);
+        basicPersistor.resetStorage(subfolder);
     }
 
 

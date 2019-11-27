@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import static config.Config.getClusteringResultsPath;
 
-public class BasicCSVPersistor {
+public class BasicPersistor {
     public String clusteringResultsPath = getClusteringResultsPath();
 
     // for different runs of the algorithms
