@@ -32,7 +32,8 @@ public class DenstreamClusterer extends BasicClusterer {
 
 
     @Override
-    protected String getSubFolder(String resId) {
+    protected String getSpecificClusteringResultFolder(String specificClusResId) {
+        // here we only care about micro clusters, so they will be stored in the den stream root folder, not in a specific one.
         return subfolder;
     }
 
@@ -67,7 +68,7 @@ public class DenstreamClusterer extends BasicClusterer {
 
         /* lambda: decay constant. Range [0.25, 1] */
         // TODO: vary lambda (forgetting component)
-        double lambda = 0.25; // = default ""
+        double lambda = 0.25; // default ""
         withDBSCAN.lambdaOption.setValue(lambda);
 
         /* processingSpeed: number of incoming points per time unit (important for decay). Role: set timestamp value (does not mean "batches to process") */

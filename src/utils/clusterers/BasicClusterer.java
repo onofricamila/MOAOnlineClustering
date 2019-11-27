@@ -28,7 +28,11 @@ public abstract class BasicClusterer {
         int sample = tGlobal; // for debugging
 
         AbstractClusterer clusterer = prepareClusterer(tGlobal);
+
         System.out.println(algoConfig);
+        // store algoConfig
+        basicCSVPersistor.storeAlgoConfig(algoConfig, this.subfolder);
+
         // get CSV data
         SimpleCSVStream stream = simpleCSVStream();
         while (stream.hasMoreInstances()) {
@@ -75,18 +79,18 @@ public abstract class BasicClusterer {
             list.add(row);
         }
         String m  = Integer.toString(moment);
-        String subf = getSubFolder(resId); // hook method
+        String subf = getSpecificClusteringResultFolder(resId); // hook method
         // store current clustering
         basicCSVPersistor.storeResult(m, list, subf);
     }
 
     protected abstract List<String> formRow(String x, String y, Cluster cluster);
 
-    protected abstract String getSubFolder(String resId);
+    protected abstract String getSpecificClusteringResultFolder(String specificClusResId);
 
 
     public void resetStorage() {
-        // delete old results
+        // delete old results and old algoConfig
         basicCSVPersistor.resetStorage(subfolder);
     }
 

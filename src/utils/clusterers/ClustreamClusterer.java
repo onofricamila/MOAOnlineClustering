@@ -30,8 +30,9 @@ public class ClustreamClusterer extends BasicClusterer {
     }
 
     @Override
-    protected String getSubFolder(String resId) {
-        return subfolder + '/' + resId;
+    protected String getSpecificClusteringResultFolder(String specificClusResId) {
+        // returns the clu stream root folder + a specific one, depending on what results are being stored: micro / macro
+        return subfolder + '/' + specificClusResId;
     }
 
 
