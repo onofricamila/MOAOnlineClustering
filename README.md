@@ -3,7 +3,9 @@ A few MOA stream clustering algorithms are run:
 * `CluStream`, and
 * `DenStream`
 
-Both take data from a CSV file, and both resulting clusterings are stored in files. Notice that **the algorithm respective configuration** (that meaning **parameters values specified** before clustering) is also **stored, in a json file**. That comes in handy when interpreting the results. This "algo config" is stored in the algorithm base folder.
+Both take data from a CSV file, and both resulting clusterings are stored in files. 
+
+Note that **the algorithm configuration** (that meaning **parameters values specified** before clustering) is also **stored, in a json file**. That comes in handy when interpreting the results. This "algo config" is stored in the  respective algorithm base folder.
 
 
 ### :grey_exclamation: Important: configuration 
