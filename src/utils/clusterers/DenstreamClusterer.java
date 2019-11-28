@@ -68,7 +68,7 @@ public class DenstreamClusterer extends BasicClusterer {
 
         /* lambda: decay constant. Range [0.25, 1] */
         // TODO: vary lambda (forgetting component)
-        double lambda = 0.25; // default ""
+        double lambda = 0.5; // default ""
         withDBSCAN.lambdaOption.setValue(lambda);
 
         /* processingSpeed: number of incoming points per time unit (important for decay). Role: set timestamp value (does not mean "batches to process") */
