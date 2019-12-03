@@ -8,9 +8,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import static config.Config.getClusteringResultsPath;
+import static config.Config.getTimeSeriesToyDatasetName;
 
 public class BasicPersistor {
-    public String clusteringResultsPath = getClusteringResultsPath();
+    public String clusteringResultsPath = getClusteringResultsPath() + getTimeSeriesToyDatasetName() + '/';
 
     // for different runs of the algorithms
     // we do not wanna keep old files with old clusterings

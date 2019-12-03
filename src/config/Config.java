@@ -10,6 +10,7 @@ import java.io.IOException;
 public class Config {
     public static String clusteringResultsPath;
     public static String csvDatasetsPath;
+    public static String timeSeriesDatasetsPath;
     public static String timeSeriesToyDatasetName;
     public static JSONObject algoNames;
 
@@ -29,6 +30,15 @@ public class Config {
         // else
         fetchConfig();
         return csvDatasetsPath;
+    }
+
+   public static String getTimeSeriesDatasetsPath(){
+        if (timeSeriesDatasetsPath != null){
+            return timeSeriesDatasetsPath;
+        }
+        // else
+        fetchConfig();
+        return timeSeriesDatasetsPath;
     }
 
     public static String getTimeSeriesToyDatasetName(){
@@ -74,6 +84,7 @@ public class Config {
             clusteringResultsPath = (String) jsonObject.get("clusteringResultsPath");
             csvDatasetsPath = (String) jsonObject.get("csvDatasetsPath");
             timeSeriesToyDatasetName = (String) jsonObject.get("timeSeriesToyDatasetName");
+            timeSeriesDatasetsPath = (String) jsonObject.get("timeSeriesDatasetsPath");
             algoNames = (JSONObject) jsonObject.get("algoNames");
 
         } catch (IOException e) {
