@@ -13,6 +13,7 @@ public class Config {
     public static String timeSeriesDatasetsPath;
     public static String timeSeriesToyDatasetName;
     public static JSONObject algoNames;
+    public static JSONObject timeSeriesParams;
     public static Integer tGlobal;
     public static Integer initPoints;
 
@@ -75,21 +76,25 @@ public class Config {
     }
 
     public static Integer getTGlobal(){
+        String key = "tGlobal";
+        Integer tGlobal = Integer.parseInt((String) timeSeriesParams.get(key));
         if (tGlobal != null){
             return tGlobal;
         }
         // else
         fetchConfig();
-        return tGlobal;
+        return (Integer) timeSeriesParams.get(key);
     }
 
     public static Integer getInitPoints(){
+        String key = "initPoints";
+        Integer initPoints = Integer.parseInt((String) timeSeriesParams.get(key));
         if (initPoints != null){
             return initPoints;
         }
         // else
         fetchConfig();
-        return initPoints;
+        return (Integer) timeSeriesParams.get(key);
     }
 
     // this method will fetch the data and fill the variables
@@ -106,6 +111,7 @@ public class Config {
             timeSeriesToyDatasetName = (String) jsonObject.get("timeSeriesToyDatasetName");
             timeSeriesDatasetsPath = (String) jsonObject.get("timeSeriesDatasetsPath");
             algoNames = (JSONObject) jsonObject.get("algoNames");
+            timeSeriesParams = (JSONObject) jsonObject.get("timeSeriesParams");
             tGlobal = Integer.parseInt((String) jsonObject.get("tGlobal"));
             initPoints = Integer.parseInt((String) jsonObject.get("initPoints"));
 
