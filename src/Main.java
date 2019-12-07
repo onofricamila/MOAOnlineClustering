@@ -1,12 +1,14 @@
 import utils.clusterers.ClustreamClusterer;
 import utils.clusterers.DenstreamClusterer;
 
+import static config.Config.getTGlobal;
+
 public class Main {
     public static void main(String[] args) {
         ClustreamClusterer clustreamClusterer = new ClustreamClusterer();
         DenstreamClusterer denstreamClusterer = new DenstreamClusterer();
 
-        int tGlobal = 200;
+        int tGlobal = getTGlobal();
 
         System.out.println("CLUSTREAM ----------------------");
         clustreamClusterer.run(tGlobal);

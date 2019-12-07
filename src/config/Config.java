@@ -13,6 +13,8 @@ public class Config {
     public static String timeSeriesDatasetsPath;
     public static String timeSeriesToyDatasetName;
     public static JSONObject algoNames;
+    public static Integer tGlobal;
+    public static Integer initPoints;
 
     public static String getClusteringResultsPath(){
         if (clusteringResultsPath != null){
@@ -72,6 +74,24 @@ public class Config {
         return (String) algoNames.get(key);
     }
 
+    public static Integer getTGlobal(){
+        if (tGlobal != null){
+            return tGlobal;
+        }
+        // else
+        fetchConfig();
+        return tGlobal;
+    }
+
+    public static Integer getInitPoints(){
+        if (initPoints != null){
+            return initPoints;
+        }
+        // else
+        fetchConfig();
+        return initPoints;
+    }
+
     // this method will fetch the data and fill the variables
     private static void fetchConfig() {
         JSONParser parser = new JSONParser();
@@ -86,6 +106,8 @@ public class Config {
             timeSeriesToyDatasetName = (String) jsonObject.get("timeSeriesToyDatasetName");
             timeSeriesDatasetsPath = (String) jsonObject.get("timeSeriesDatasetsPath");
             algoNames = (JSONObject) jsonObject.get("algoNames");
+            tGlobal = Integer.parseInt((String) jsonObject.get("tGlobal"));
+            initPoints = Integer.parseInt((String) jsonObject.get("initPoints"));
 
         } catch (IOException e) {
             e.printStackTrace();

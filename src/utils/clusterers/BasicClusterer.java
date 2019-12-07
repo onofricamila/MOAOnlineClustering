@@ -11,6 +11,8 @@ import org.json.simple.JSONObject;
 import utils.persitors.BasicPersistor;
 import java.util.ArrayList;
 import java.util.List;
+
+import static config.Config.getInitPoints;
 import static utils.data_generators.StreamFromCsvGenerator.simpleCSVStream;
 
 public abstract class BasicClusterer {
@@ -21,13 +23,16 @@ public abstract class BasicClusterer {
     JSONObject algoConfig = new JSONObject();
 
     public void run(int tGlobal) {
+        // fetch initPoints: min points needed to get started with the macro clusters
+        Integer initPoints = getInitPoints();
+
         // delete old results
         resetStorage();
 
         int i = 0; // meaning processed samples (to count till tGlobal)
         int sample = tGlobal; // for debugging
 
-        AbstractClusterer clusterer = prepareClusterer(tGlobal);
+        AbstractClusterer clusterer = prepareClusterer(initPoints);
 
         System.out.println(algoConfig);
         // store algoConfig
