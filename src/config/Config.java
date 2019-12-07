@@ -14,70 +14,73 @@ public class Config {
     public static JSONObject algoNames;
     public static JSONObject timeSeriesParams;
 
-    public static JSONObject getAlgoNames() {
+    private static JSONObject getAlgoNames() {
         return algoNames;
     }
 
-    public static JSONObject getTimeSeriesParams() {
+    private static JSONObject getTimeSeriesParams() {
         return timeSeriesParams;
     }
 
-    public static JSONObject getPaths() {
+    private static JSONObject getPaths() {
         return paths;
     }
 
-    public static Object getFromJSONObject(String key, Callable function){
+    private static String retTimeSeriesToyDatasetName() {
+        return timeSeriesToyDatasetName;
+    }
+
+    public static Object fetchElementIfNull(Callable getter){
         try {
-            JSONObject jsonObject = (JSONObject) function.call();
-            if (jsonObject != null){
-                return jsonObject.get(key);
+            Object object =  getter.call();
+            if (object != null){
+                return object;
             }
             // else
             fetchConfig();
-            return  ( (JSONObject) function.call() ).get(key);
+            return  getter.call();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    public static Object getElementFromJSONObject(String key, Callable getter){
+        return  ( (JSONObject) fetchElementIfNull(getter) ).get(key);
+    }
+
     public static String getClusteringResultsPath(){
         String key = "clusteringResultsPath";
-        return (String) getFromJSONObject(key, Config::getPaths);
+        return (String) getElementFromJSONObject(key, Config::getPaths);
     }
 
    public static String getTimeSeriesDatasetsPath(){
        String key = "timeSeriesDatasetsPath";
-       return (String) getFromJSONObject(key, Config::getPaths);
+       return (String) getElementFromJSONObject(key, Config::getPaths);
     }
 
     public static String getTimeSeriesToyDatasetName(){
-        if (timeSeriesToyDatasetName != null){
-            return timeSeriesToyDatasetName;
-        }
-        // else
-        fetchConfig();
-        return timeSeriesToyDatasetName;
+        return (String) fetchElementIfNull(Config::retTimeSeriesToyDatasetName);
     }
 
     public static String getCluStreamName(){
         String key = "clustream";
-        return (String) getFromJSONObject(key, Config::getAlgoNames);
+        return (String) getElementFromJSONObject(key, Config::getAlgoNames);
     }
 
     public static String getDenStreamName(){
         String key = "denstream";
-        return (String) getFromJSONObject(key, Config::getAlgoNames);
+        return (String) getElementFromJSONObject(key, Config::getAlgoNames);
     }
 
     public static Integer getTGlobal(){
         String key = "tGlobal";
-        return Integer.parseInt( (String) getFromJSONObject(key, Config::getTimeSeriesParams) );
+        return Integer.parseInt( (String) getElementFromJSONObject(key, Config::getTimeSeriesParams) );
     }
 
     public static Integer getInitPoints(){
         String key = "initPoints";
-        return Integer.parseInt( (String) getFromJSONObject(key, Config::getTimeSeriesParams) );
+        return Integer.parseInt( (String) getElementFromJSONObject(key, Config::getTimeSeriesParams) );
     }
 
     // this method will fetch the data and fill the variables
