@@ -6,42 +6,49 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.concurrent.Callable;
 
 public class Config {
-    public static String clusteringResultsPath;
-    public static String csvDatasetsPath;
-    public static String timeSeriesDatasetsPath;
     public static String timeSeriesToyDatasetName;
+    public static JSONObject paths;
     public static JSONObject algoNames;
     public static JSONObject timeSeriesParams;
-    public static Integer tGlobal;
-    public static Integer initPoints;
 
-    public static String getClusteringResultsPath(){
-        if (clusteringResultsPath != null){
-            return clusteringResultsPath;
-        }
-        // else
-        fetchConfig();
-        return clusteringResultsPath;
+    public static JSONObject getAlgoNames() {
+        return algoNames;
     }
 
-    public static String getCsvDatasetsPath(){
-        if (csvDatasetsPath != null){
-            return csvDatasetsPath;
+    public static JSONObject getTimeSeriesParams() {
+        return timeSeriesParams;
+    }
+
+    public static JSONObject getPaths() {
+        return paths;
+    }
+
+    public static Object getFromJSONObject(String key, Callable function){
+        try {
+            JSONObject jsonObject = (JSONObject) function.call();
+            if (jsonObject != null){
+                return jsonObject.get(key);
+            }
+            // else
+            fetchConfig();
+            return  ( (JSONObject) function.call() ).get(key);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        // else
-        fetchConfig();
-        return csvDatasetsPath;
+        return null;
+    }
+
+    public static String getClusteringResultsPath(){
+        String key = "clusteringResultsPath";
+        return (String) getFromJSONObject(key, Config::getPaths);
     }
 
    public static String getTimeSeriesDatasetsPath(){
-        if (timeSeriesDatasetsPath != null){
-            return timeSeriesDatasetsPath;
-        }
-        // else
-        fetchConfig();
-        return timeSeriesDatasetsPath;
+       String key = "timeSeriesDatasetsPath";
+       return (String) getFromJSONObject(key, Config::getPaths);
     }
 
     public static String getTimeSeriesToyDatasetName(){
@@ -55,46 +62,22 @@ public class Config {
 
     public static String getCluStreamName(){
         String key = "clustream";
-        String cluStreamName = (String) algoNames.get(key);
-        if (cluStreamName != null){
-            return cluStreamName;
-        }
-        // else
-        fetchConfig();
-        return (String) algoNames.get(key);
+        return (String) getFromJSONObject(key, Config::getAlgoNames);
     }
 
     public static String getDenStreamName(){
         String key = "denstream";
-        String denStreamName = (String) algoNames.get(key);
-        if (denStreamName != null){
-            return denStreamName;
-        }
-        // else
-        fetchConfig();
-        return (String) algoNames.get(key);
+        return (String) getFromJSONObject(key, Config::getAlgoNames);
     }
 
     public static Integer getTGlobal(){
         String key = "tGlobal";
-        Integer tGlobal = Integer.parseInt((String) timeSeriesParams.get(key));
-        if (tGlobal != null){
-            return tGlobal;
-        }
-        // else
-        fetchConfig();
-        return (Integer) timeSeriesParams.get(key);
+        return Integer.parseInt( (String) getFromJSONObject(key, Config::getTimeSeriesParams) );
     }
 
     public static Integer getInitPoints(){
         String key = "initPoints";
-        Integer initPoints = Integer.parseInt((String) timeSeriesParams.get(key));
-        if (initPoints != null){
-            return initPoints;
-        }
-        // else
-        fetchConfig();
-        return (Integer) timeSeriesParams.get(key);
+        return Integer.parseInt( (String) getFromJSONObject(key, Config::getTimeSeriesParams) );
     }
 
     // this method will fetch the data and fill the variables
@@ -106,14 +89,10 @@ public class Config {
             Object obj = parser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
 
-            clusteringResultsPath = (String) jsonObject.get("clusteringResultsPath");
-            csvDatasetsPath = (String) jsonObject.get("csvDatasetsPath");
             timeSeriesToyDatasetName = (String) jsonObject.get("timeSeriesToyDatasetName");
-            timeSeriesDatasetsPath = (String) jsonObject.get("timeSeriesDatasetsPath");
+            paths = (JSONObject) jsonObject.get("paths");
             algoNames = (JSONObject) jsonObject.get("algoNames");
             timeSeriesParams = (JSONObject) jsonObject.get("timeSeriesParams");
-            tGlobal = Integer.parseInt((String) jsonObject.get("tGlobal"));
-            initPoints = Integer.parseInt((String) jsonObject.get("initPoints"));
 
         } catch (IOException e) {
             e.printStackTrace();
