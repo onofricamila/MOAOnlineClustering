@@ -1,6 +1,7 @@
 package utils.clusterers;
 
 import moa.cluster.Cluster;
+import moa.cluster.SphereCluster;
 import moa.clusterers.AbstractClusterer;
 import moa.clusterers.denstream.WithDBSCAN;
 
@@ -26,8 +27,9 @@ public class DenstreamClusterer extends BasicClusterer {
         // get specific atts
         Double id = cluster.getId();
         String label = Double.toString(id);
-        // return row
-        return Arrays.asList(x, y, label);
+        double radius = ((SphereCluster) cluster).getRadius();
+        String rad =Double.toString(radius);// return row
+        return Arrays.asList(x, y, rad, label);
     }
 
 
