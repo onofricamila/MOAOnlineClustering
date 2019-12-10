@@ -32,7 +32,7 @@ public abstract class BasicClusterer {
         int i = 0; // meaning processed samples (to count till tGlobal)
         int sample = tGlobal; // for debugging
 
-        AbstractClusterer clusterer = prepareClusterer(initPoints);
+        AbstractClusterer clusterer = prepareClusterer(initPoints, tGlobal);
 
         System.out.println(algoConfig);
         // store algoConfig
@@ -101,7 +101,7 @@ public abstract class BasicClusterer {
 
 
     // set specific parameters for each algo
-    public abstract AbstractClusterer prepareClusterer(int initMinPoints);
+    public abstract AbstractClusterer prepareClusterer(int initMinPoints, int tGlobal);
 
 
     private void showClusteringInfo(Clustering clustering) {

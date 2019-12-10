@@ -40,7 +40,7 @@ public class DenstreamClusterer extends BasicClusterer {
     }
 
     @Override
-    public AbstractClusterer prepareClusterer(int initMinPoints) {
+    public AbstractClusterer prepareClusterer(int initMinPoints, int tGlobal) {
         WithDBSCAN withDBSCAN = new WithDBSCAN();
         /* horizon: ?. No matter the value, the result you get is the same. */
         int horizon = 1000; // = default 1000
