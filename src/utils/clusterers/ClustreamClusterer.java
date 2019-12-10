@@ -40,7 +40,7 @@ public class ClustreamClusterer extends BasicClusterer {
     public AbstractClusterer prepareClusterer(int initPoints, int tGlobal) {
         WithKmeans withKmeans = new WithKmeans();
         /* horizon: Defines the time window to be used in CluStream. Used to free some space to insert a new kernel*/
-        int timeWindow = tGlobal; // = default 1000
+        int timeWindow = tGlobal; // default 1000
         withKmeans.timeWindowOption.setValue(timeWindow);
 
         /* m: Defines the maximum number of micro-clusters used in CluStream. A buffer of the same size will be used
@@ -51,7 +51,7 @@ public class ClustreamClusterer extends BasicClusterer {
 
         /* t: Maximal boundary factor (= kernel radius factor). When deciding to add a new data point to a micro-cluster,
         the maximum boundary is defined as a factor of the RMS deviation of the data points in the micro-cluster from the centroid. */
-        int kernelRadiFactor = 2; // = default 2
+        int kernelRadiFactor = 2; // default 2
         withKmeans.kernelRadiFactorOption.setValue(kernelRadiFactor);
 
         /* k: Number of macro-clusters to produce using weighted k-means. */

@@ -43,20 +43,20 @@ public class DenstreamClusterer extends BasicClusterer {
     public AbstractClusterer prepareClusterer(int initMinPoints, int tGlobal) {
         WithDBSCAN withDBSCAN = new WithDBSCAN();
         /* horizon: ?. No matter the value, the result you get is the same. */
-        int horizon = 1000; // = default 1000
+        int horizon = 1000; // default 1000
         withDBSCAN.horizonOption.setValue(horizon);
 
         /* epsilon: defines the epsilon neighbourhood which is the maximal radius of micro-clusters(r<=epsilon). Range [0, 1] */
         // TODO: vary epsilonOption,
-        double epsilon = 0.4; // = default 0.2
+        double epsilon = 0.4; // default 0.2
         withDBSCAN.epsilonOption.setValue(epsilon);
 
         /* beta: multiplier for mu to detect outlier micro-clusters given their weight w (w<betax mu). Range [0, 1] */
-        double beta = 0.2; // = default 0.2
+        double beta = 0.2; // default 0.2
         withDBSCAN.betaOption.setValue(beta);
 
         /* mu: minpoints as the weight w a core-micro-clusters needs to be created (w>=mu). Range [0, +inf] */
-        int mu = 1; // = default 1
+        int mu = 1; // default 1
         withDBSCAN.muOption.setValue(mu);
 
         /* initPoints: number of points to use for initialization via DBSCAN. */
@@ -65,7 +65,7 @@ public class DenstreamClusterer extends BasicClusterer {
         withDBSCAN.initPointsOption.setValue(initPoints);
 
         /* offline: offline multiplier for epsilon. Used for reachabilityreclustering. Range [2, 20] */
-        int offline = 2; // = default 2
+        int offline = 2; // default 2
         withDBSCAN.offlineOption.setValue(offline);
 
         /* lambda: decay constant. Range [0.25, 1] */
@@ -74,7 +74,7 @@ public class DenstreamClusterer extends BasicClusterer {
         withDBSCAN.lambdaOption.setValue(lambda);
 
         /* processingSpeed: number of incoming points per time unit (important for decay). Role: set timestamp value (does not mean "batches to process") */
-        int speed = 100; // = default 100
+        int speed = 100; // default 100
         withDBSCAN.speedOption.setValue(speed);
 
         // fill json object algoConfig
