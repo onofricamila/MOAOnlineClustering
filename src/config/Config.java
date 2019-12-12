@@ -78,6 +78,11 @@ public class Config {
         return Integer.parseInt( (String) getElementFromJSONObject(key, Config::getTimeSeriesParams) );
     }
 
+    public static Integer getTimeWindow(){
+        String key = "timeWindow";
+        return Integer.parseInt( (String) getElementFromJSONObject(key, Config::getTimeSeriesParams) );
+    }
+
     public static Integer getInitPoints(){
         String key = "initPoints";
         return Integer.parseInt( (String) getElementFromJSONObject(key, Config::getTimeSeriesParams) );

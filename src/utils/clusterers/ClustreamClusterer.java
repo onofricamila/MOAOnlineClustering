@@ -37,10 +37,11 @@ public class ClustreamClusterer extends BasicClusterer {
 
 
     @Override
-    public AbstractClusterer prepareClusterer(int initPoints, int tGlobal) {
+    public AbstractClusterer prepareClusterer(int initPoints, int tWindow) {
         WithKmeans withKmeans = new WithKmeans();
-        /* horizon: Defines the time window to be used in CluStream. Used to free some space to insert a new kernel*/
-        int timeWindow = tGlobal; // default 1000
+        /* horizon: Defines the time window in seconds to be used in CluStream. Used to free some space to insert a
+        new kernel, controling which microclusters become expired */
+        int timeWindow = tWindow; // default 1000
         withKmeans.timeWindowOption.setValue(timeWindow);
 
         /* m: Defines the maximum number of micro-clusters used in CluStream. A buffer of the same size will be used

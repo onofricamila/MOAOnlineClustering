@@ -12,7 +12,7 @@ import utils.persitors.BasicPersistor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static config.Config.getInitPoints;
+import static config.Config.*;
 import static utils.data_generators.StreamFromCsvGenerator.simpleCSVStream;
 
 public abstract class BasicClusterer {
@@ -22,17 +22,21 @@ public abstract class BasicClusterer {
     String subfolder;
     JSONObject algoConfig = new JSONObject();
 
-    public void run(int tGlobal) {
-        // fetch initPoints: min points needed to get started with the macro clusters
-        Integer initPoints = getInitPoints();
+    public void run() {
+        // fetch tGlobal (every 'tGlobal' processed samples we'll get the clustering result),
+        // initPoints (min points needed to get started with the macro clusters) and
+        // timeWindow ()
+        int initPoints = getInitPoints();
+        int tGlobal = getTGlobal();
+        int timeWindow = getTimeWindow(); // TODO: check if the tWindow must be different for den and clu stream
 
         // delete old results
         resetStorage();
 
-        int i = 0; // meaning processed samples (to count till tGlobal)
-        int sample = tGlobal; // for debugging
+        int ac = 0; // ac to count till tGlobal
+        int processedSamples = 0; // for debugging
 
-        AbstractClusterer clusterer = prepareClusterer(initPoints, tGlobal);
+        AbstractClusterer clusterer = prepareClusterer(initPoints, timeWindow);
 
         System.out.println(algoConfig);
         // store algoConfig
@@ -48,18 +52,17 @@ public abstract class BasicClusterer {
             inst.deleteAttributeAt(2);
             //learning code
             clusterer.trainOnInstanceImpl(inst);
-            i += 1;
-            if (i == tGlobal){
-                // TODO: store result in csv: center + label
+            ac += 1;
+            if (ac == tGlobal){
                 clusteringResult = clusterer.getClusteringResult();
                 microClusteringResult = clusterer.getMicroClusteringResult();
                 // debug
-                showClusteringInfo(sample, clusteringResult);
+                processedSamples += tGlobal;
+                showClusteringInfo(processedSamples, clusteringResult);
                 // store
-                storeResult(sample);
-                // reset i
-                i = 0;
-                sample += tGlobal;
+                storeResult(processedSamples);
+                // reset ac
+                ac = 0;
             }
         }
     }
@@ -100,8 +103,8 @@ public abstract class BasicClusterer {
     public abstract AbstractClusterer prepareClusterer(int initMinPoints, int tGlobal);
 
 
-    private void showClusteringInfo(int sample, Clustering clustering) {
-        System.out.println(sample + " procesados   |   " + clusteringResult.size() + " clusters");
+    private void showClusteringInfo(int processedSamples, Clustering clustering) {
+        System.out.println(processedSamples + " procesados   |   " + clusteringResult.size() + " clusters");
         int sumW = 0;
         for (int i = 0; i < clustering.size(); i++) {
             Cluster cluster = clustering.get(i);
