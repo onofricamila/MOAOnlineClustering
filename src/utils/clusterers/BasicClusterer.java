@@ -116,7 +116,7 @@ public abstract class BasicClusterer {
             SphereCluster sc = (SphereCluster) cluster;
             double r = sc.getRadius();
 
-            System.out.println("id: " + id);
+            System.out.println("\n" + "id: " + id);
             System.out.println("center: " + center[0] + "  , " + center[1]);
             System.out.println("weight: " + w);
             System.out.println("radius: " + r + "\n");

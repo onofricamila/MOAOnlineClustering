@@ -1,8 +1,8 @@
 package utils.clusterers;
 
 import moa.cluster.Cluster;
-import moa.cluster.SphereCluster;
 import moa.clusterers.AbstractClusterer;
+import moa.clusterers.clustream.ClustreamKernel;
 import moa.clusterers.clustream.WithKmeans;
 
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class ClustreamClusterer extends BasicClusterer {
 
     @Override
     protected List<String> formRow(String x, String y, Cluster cluster) {
-        double radius = ((SphereCluster) cluster).getRadius();
+        double radius = ((ClustreamKernel) cluster).getRadius();
         String rad =Double.toString(radius);
         return Arrays.asList(x, y, rad);
     }
