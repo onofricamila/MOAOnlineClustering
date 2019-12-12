@@ -53,19 +53,15 @@ public abstract class BasicClusterer {
                 // TODO: store result in csv: center + label
                 clusteringResult = clusterer.getClusteringResult();
                 microClusteringResult = clusterer.getMicroClusteringResult();
-                storeResult(sample);
                 // debug
-                System.out.println(sample + " procesados   |   " + clusteringResult.size() + "clusters");
+                showClusteringInfo(sample, clusteringResult);
+                // store
+                storeResult(sample);
                 // reset i
                 i = 0;
                 sample += tGlobal;
             }
         }
-
-        Clustering clusteringResult = clusterer.getClusteringResult();
-        Clustering microClusteringResult = clusterer.getMicroClusteringResult();
-
-        showClusteringInfo(clusteringResult);
     }
 
 
@@ -104,7 +100,8 @@ public abstract class BasicClusterer {
     public abstract AbstractClusterer prepareClusterer(int initMinPoints, int tGlobal);
 
 
-    private void showClusteringInfo(Clustering clustering) {
+    private void showClusteringInfo(int sample, Clustering clustering) {
+        System.out.println(sample + " procesados   |   " + clusteringResult.size() + " clusters");
         int sumW = 0;
         for (int i = 0; i < clustering.size(); i++) {
             Cluster cluster = clustering.get(i);
@@ -116,12 +113,12 @@ public abstract class BasicClusterer {
             SphereCluster sc = (SphereCluster) cluster;
             double r = sc.getRadius();
 
-            System.out.println("\n" + "id: " + id);
-            System.out.println("center: " + center[0] + "  , " + center[1]);
-            System.out.println("weight: " + w);
-            System.out.println("radius: " + r + "\n");
+            System.out.println("\n" + "    id: " + id);
+            System.out.println("    center: " + center[0] + "  , " + center[1]);
+            System.out.println("    weight: " + w);
+            System.out.println("    radius: " + r);
             sumW += w;
         }
-        System.out.println("sumw: " + sumW);
+        System.out.println("    * sumw: " + sumW + "\n\n");
     }
 }
