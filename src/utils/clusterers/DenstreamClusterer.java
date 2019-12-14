@@ -42,9 +42,6 @@ public class DenstreamClusterer extends BasicClusterer {
     @Override
     public AbstractClusterer prepareClusterer(int initMinPoints, int tWindow) {
         WithDBSCAN withDBSCAN = new WithDBSCAN();
-        /* horizon: ?. No matter the value, the result you get is the same. */
-        int horizon = 200; // default 1000
-        withDBSCAN.horizonOption.setValue(horizon);
 
         /* epsilon: defines the epsilon neighbourhood which is the maximal radius of micro-clusters(r<=epsilon). Range [0, 1] */
         // TODO: vary epsilonOption,
@@ -80,7 +77,6 @@ public class DenstreamClusterer extends BasicClusterer {
         withDBSCAN.speedOption.setValue(speed);
 
         // fill json object algoConfig
-        algoConfig.put("horizon", horizon);
         algoConfig.put("epsilon", epsilon);
         algoConfig.put("beta", beta);
         algoConfig.put("mu", mu);
