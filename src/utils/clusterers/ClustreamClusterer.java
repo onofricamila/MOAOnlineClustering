@@ -65,8 +65,6 @@ public class ClustreamClusterer extends BasicClusterer {
         algoConfig.put("kernelRadiFactor", kernelRadiFactor);
         algoConfig.put("k", k);
 
-        // once the parameters are specified, prepare the clusterer
-        withKmeans.resetLearningImpl();
         return withKmeans;
     }
 }

@@ -85,9 +85,6 @@ public class DenstreamClusterer extends BasicClusterer {
         algoConfig.put("lambda", lambda);
         algoConfig.put("speed", speed);
 
-        // once the parameters are specified, prepare the clusterer
-        withDBSCAN.resetLearningImpl();
-        withDBSCAN.initialDBScan();
         return withDBSCAN;
     }
 }

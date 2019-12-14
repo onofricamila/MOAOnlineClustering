@@ -37,6 +37,8 @@ public abstract class BasicClusterer {
         int processedSamples = 0; // for debugging
 
         AbstractClusterer clusterer = prepareClusterer(initPoints, timeWindow);
+        // once the parameters are specified, prepare the clusterer
+        clusterer.resetLearningImpl();
 
         System.out.println(algoConfig);
         // store algoConfig
