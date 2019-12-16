@@ -9,7 +9,7 @@ public class Main {
         System.out.println("CLUSTREAM ----------------------");
         clustreamClusterer.run();
 
-//        System.out.println("\n" + "DENSTREAM ----------------------");
-//        denstreamClusterer.run();
+        System.out.println("\n" + "DENSTREAM ----------------------");
+        denstreamClusterer.run();
     }
 }

@@ -40,7 +40,7 @@ public class DenstreamClusterer extends BasicClusterer {
     }
 
     @Override
-    public AbstractClusterer prepareClusterer(int initMinPoints, int tWindow) {
+    public AbstractClusterer prepareClusterer(int initMinPoints) {
         WithDBSCAN withDBSCAN = new WithDBSCAN();
 
         /* epsilon: defines the epsilon neighbourhood which is the maximal radius of micro-clusters(r<=epsilon). Range [0, 1] */

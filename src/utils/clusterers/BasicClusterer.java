@@ -28,7 +28,6 @@ public abstract class BasicClusterer {
         // timeWindow ()
         int initPoints = getInitPoints();
         int tGlobal = getTGlobal();
-        int timeWindow = getTimeWindow(); // TODO: check if the tWindow must be different for den and clu stream
 
         // delete old results
         resetStorage();
@@ -36,7 +35,7 @@ public abstract class BasicClusterer {
         int ac = 0; // ac to count till tGlobal
         int processedSamples = 0; // for debugging
 
-        AbstractClusterer clusterer = prepareClusterer(initPoints, timeWindow);
+        AbstractClusterer clusterer = prepareClusterer(initPoints);
         // once the parameters are specified, prepare the clusterer
         clusterer.resetLearningImpl();
 
@@ -102,7 +101,7 @@ public abstract class BasicClusterer {
 
 
     // set specific parameters for each algo
-    public abstract AbstractClusterer prepareClusterer(int initMinPoints, int tGlobal);
+    public abstract AbstractClusterer prepareClusterer(int initMinPoints);
 
 
     private void showClusteringInfo(int processedSamples, Clustering clustering) {
