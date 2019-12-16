@@ -44,20 +44,18 @@ public class DenstreamClusterer extends BasicClusterer {
         WithDBSCAN withDBSCAN = new WithDBSCAN();
 
         /* epsilon: defines the epsilon neighbourhood which is the maximal radius of micro-clusters(r<=epsilon). Range [0, 1] */
-        // TODO: vary epsilonOption,
-        double epsilon = 0.2; // default 0.2
+        double epsilon = 0.1; // default 0.2
         withDBSCAN.epsilonOption.setValue(epsilon);
 
         /* mu: minpoints as the weight w a core-micro-clusters needs to be created (w>=mu). Range [0, +inf] */
         int mu = 1; // default 1
         withDBSCAN.muOption.setValue(mu);
 
-        /* beta: multiplier for mu to detect outlier micro-clusters given their weight w (w<betax mu). Range [0, 1] */
+        /* beta: multiplier for mu to detect outlier micro-clusters given their weight w (w< beta*mu). Range [0, 1] */
         double beta = 0.2; // default 0.2
         withDBSCAN.betaOption.setValue(beta);
 
          /* initPoints: number of points to use for initialization via DBSCAN. */
-        // TODO: vary initPointsOption (needed amount of points to start forming macro clusters)
         int initPoints = initMinPoints; // default: 1000
         withDBSCAN.initPointsOption.setValue(initPoints);
 
@@ -67,12 +65,12 @@ public class DenstreamClusterer extends BasicClusterer {
         int offline = 5; // default 2
         withDBSCAN.offlineOption.setValue(offline);
 
-        /* lambda: decay constant. Range [0.25, 1] */
-        // TODO: vary lambda (forgetting component)
-        double lambda = 0.8; // default ""
+        /* lambda: decay constant. Used to determine 'the portion' you are going to forget when returning certain att,
+        and also when determining if a cluster must be deleted or not. Range [0.25, 1] */
+        double lambda = 0.7; // default ""
         withDBSCAN.lambdaOption.setValue(lambda);
 
-        /* processingSpeed: number of incoming points per time unit (important for decay). Role: set timestamp value (does not mean "batches to process") */
+        /* processingSpeed: number of incoming points per time unit (important for decay). Role: set timestamp value */
         int speed = 50; // default 100
         withDBSCAN.speedOption.setValue(speed);
 
